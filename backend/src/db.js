@@ -21,9 +21,16 @@ if (IS_POSTGRES) {
 
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
+    max: 3, // Prevent exceeding Render Free tier limit of 4 connections
+    connectionTimeoutMillis: 15000, // Queue requests instead of timing out immediately
+    idleTimeoutMillis: 30000,
     ssl: process.env.DATABASE_URL.includes("localhost")
       ? false
       : { rejectUnauthorized: false },
+  });
+
+  pool.on("error", (err) => {
+    console.error("🐘 PostgreSQL Pool Error:", err);
   });
 
   async function initDb() {
