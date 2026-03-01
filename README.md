@@ -2,9 +2,10 @@
 
 A **production-grade**, full-stack web application that ingests AI-generated CCTV events and displays real-time productivity metrics for a factory floor with 6 workers and 6 workstations.
 
-> **Live Demo:** _Deploy via Docker or Render/Railway (see deployment section)_
-> **Backend API:** `http://localhost:4000`  
-> **Frontend:** `http://localhost:3000`
+> **Frontend:** [https://ai-powered-worker-prod-git-87de9f-sonu-kumars-projects-e29af719.vercel.app](https://ai-powered-worker-prod-git-87de9f-sonu-kumars-projects-e29af719.vercel.app)
+> **Backend API:** [https://ai-dashboard-backend-hhnt.onrender.com](https://ai-dashboard-backend-hhnt.onrender.com)
+> **Health Check:** [https://ai-dashboard-backend-hhnt.onrender.com/api/health](https://ai-dashboard-backend-hhnt.onrender.com/api/health)
+> **GitHub Repository:** [https://github.com/Guptsonu22/AI-Powered-Worker-Productivity-Dashboard-Context](https://github.com/Guptsonu22/AI-Powered-Worker-Productivity-Dashboard-Context)
 
 ---
 
