@@ -162,11 +162,15 @@ export default function OverviewPage() {
       <div className="select-wrap" style={{ width: "175px" }}>
         <select id="date-filter" className="select-input" value={selectedDate} onChange={(e) => handleDateChange(e.target.value)}>
           <option value="">All Time</option>
-          {dates.map((d) => (
-            <option key={d} value={d}>
-              {new Date(d + "T12:00:00Z").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
-            </option>
-          ))}
+          {dates.filter(Boolean).map((d) => {
+            const parsed = new Date(d.substring(0, 10) + "T12:00:00Z");
+            if (isNaN(parsed.getTime())) return null;
+            return (
+              <option key={d} value={d}>
+                {parsed.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
+              </option>
+            );
+          })}
         </select>
         <span className="select-arrow">▼</span>
       </div>
