@@ -99,7 +99,7 @@ if (IS_POSTGRES) {
     return sql
       .replace(/datetime\('now',\s*'-60 seconds'\)/gi, "NOW() - INTERVAL '60 seconds'")
       .replace(/datetime\('now'\)/gi, "NOW()")
-      .replace(/date\('now'\)/gi, "CURRENT_DATE")
+      .replace(/date\('now'\)/gi, "TO_CHAR(CURRENT_DATE, 'YYYY-MM-DD')")
       .replace(/date\(timestamp\)/gi, "TO_CHAR(timestamp, 'YYYY-MM-DD')")
       .replace(/strftime\('%Y-%m-%d',\s*([^)]+)\)/gi, "TO_CHAR($1, 'YYYY-MM-DD')")
       .replace(/strftime\('%H',\s*([^)]+)\)/gi, "TO_CHAR($1, 'HH24')")
