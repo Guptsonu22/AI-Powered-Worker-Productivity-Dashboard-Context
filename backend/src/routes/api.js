@@ -168,8 +168,8 @@ router.get("/workstations", async (req, res) => {
     catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-// ─── GET /api/metrics/workers ─────────────────────────────────────
-router.get("/metrics/workers", async (req, res) => {
+// ─── GET /api/dashboard/workers ─────────────────────────────────────
+router.get("/dashboard/workers", async (req, res) => {
     try {
         const { date } = req.query;
         const metrics = await computeWorkerMetrics(date || null);
@@ -179,8 +179,8 @@ router.get("/metrics/workers", async (req, res) => {
     }
 });
 
-// ─── GET /api/metrics/workstations ────────────────────────────────
-router.get("/metrics/workstations", async (req, res) => {
+// ─── GET /api/dashboard/workstations ────────────────────────────────
+router.get("/dashboard/workstations", async (req, res) => {
     try {
         const { date } = req.query;
         const metrics = await computeWorkstationMetrics(date || null);
@@ -190,8 +190,8 @@ router.get("/metrics/workstations", async (req, res) => {
     }
 });
 
-// ─── GET /api/metrics/factory ─────────────────────────────────────
-router.get("/metrics/factory", async (req, res) => {
+// ─── GET /api/dashboard/factory ─────────────────────────────────────
+router.get("/dashboard/factory", async (req, res) => {
     try {
         const { date } = req.query;
         const metrics = await computeFactoryMetrics(date || null);
@@ -201,8 +201,8 @@ router.get("/metrics/factory", async (req, res) => {
     }
 });
 
-// ─── GET /api/metrics/worker/:id ─────────────────────────────────
-router.get("/metrics/worker/:id", async (req, res) => {
+// ─── GET /api/dashboard/worker/:id ─────────────────────────────────
+router.get("/dashboard/worker/:id", async (req, res) => {
     try {
         const { date } = req.query;
         const all = await computeWorkerMetrics(date || null);
@@ -214,8 +214,8 @@ router.get("/metrics/worker/:id", async (req, res) => {
     }
 });
 
-// ─── GET /api/metrics/workstation/:id ────────────────────────────
-router.get("/metrics/workstation/:id", async (req, res) => {
+// ─── GET /api/dashboard/workstation/:id ────────────────────────────
+router.get("/dashboard/workstation/:id", async (req, res) => {
     try {
         const { date } = req.query;
         const all = await computeWorkstationMetrics(date || null);
@@ -282,8 +282,8 @@ router.get("/health", async (req, res) => {
     }
 });
 
-// ─── GET /api/metrics/trends ─────────────────────────────────────
-router.get("/metrics/trends", async (req, res) => {
+// ─── GET /api/dashboard/trends ─────────────────────────────────────
+router.get("/dashboard/trends", async (req, res) => {
     try {
         const dates = (await queryAll(
             "SELECT DISTINCT date(timestamp) AS d FROM events ORDER BY d DESC LIMIT 2"
@@ -320,8 +320,8 @@ router.get("/metrics/trends", async (req, res) => {
     }
 });
 
-// ─── GET /api/metrics/event-density ──────────────────────────────
-router.get("/metrics/event-density", async (req, res) => {
+// ─── GET /api/dashboard/event-density ──────────────────────────────
+router.get("/dashboard/event-density", async (req, res) => {
     try {
         const { date } = req.query;
         const rows = await queryAll(`
@@ -347,8 +347,8 @@ router.get("/metrics/event-density", async (req, res) => {
     }
 });
 
-// ─── GET /api/metrics/model-performance ──────────────────────────
-router.get("/metrics/model-performance", async (req, res) => {
+// ─── GET /api/dashboard/model-performance ──────────────────────────
+router.get("/dashboard/model-performance", async (req, res) => {
     try {
         const rows = await queryAll(`
             SELECT

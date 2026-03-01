@@ -134,20 +134,20 @@ export const api = {
 
     getWorkerMetrics: (date?: string) =>
         fetchJSON<{ metrics: WorkerMetric[]; date: string; count: number }>(
-            `/api/metrics/workers${date ? `?date=${date}` : ""}`
+            `/api/dashboard/workers${date ? `?date=${date}` : ""}`
         ),
     getWorkstationMetrics: (date?: string) =>
         fetchJSON<{ metrics: WorkstationMetric[]; date: string; count: number }>(
-            `/api/metrics/workstations${date ? `?date=${date}` : ""}`
+            `/api/dashboard/workstations${date ? `?date=${date}` : ""}`
         ),
     getFactoryMetrics: (date?: string) =>
         fetchJSON<{ metrics: FactoryMetric; date: string }>(
-            `/api/metrics/factory${date ? `?date=${date}` : ""}`
+            `/api/dashboard/factory${date ? `?date=${date}` : ""}`
         ),
     getWorkerMetric: (id: string, date?: string) =>
-        fetchJSON<WorkerMetric>(`/api/metrics/worker/${id}${date ? `?date=${date}` : ""}`),
+        fetchJSON<WorkerMetric>(`/api/dashboard/worker/${id}${date ? `?date=${date}` : ""}`),
     getWorkstationMetric: (id: string, date?: string) =>
-        fetchJSON<WorkstationMetric>(`/api/metrics/workstation/${id}${date ? `?date=${date}` : ""}`),
+        fetchJSON<WorkstationMetric>(`/api/dashboard/workstation/${id}${date ? `?date=${date}` : ""}`),
 
     getEvents: (params: {
         worker_id?: string;
@@ -191,15 +191,15 @@ export const api = {
         }).then((r) => r.json()),
 
     getTrends: () =>
-        fetchJSON<TrendData>("/api/metrics/trends"),
+        fetchJSON<TrendData>("/api/dashboard/trends"),
 
     getEventDensity: (date?: string) =>
         fetchJSON<{ density: EventDensityBucket[]; date: string }>(
-            `/api/metrics/event-density${date ? `?date=${date}` : ""}`
+            `/api/dashboard/event-density${date ? `?date=${date}` : ""}`
         ),
 
     getModelPerformance: () =>
-        fetchJSON<{ models: ModelPerformance[] }>("/api/metrics/model-performance"),
+        fetchJSON<{ models: ModelPerformance[] }>("/api/dashboard/model-performance"),
 
     exportWorkers: (date?: string, format: "csv" | "json" = "csv") =>
         `${API_URL}/api/export/workers?format=${format}${date ? `&date=${date}` : ""}`,
