@@ -1,0 +1,4 @@
+productivity.db
+node_modules/
+.env
+*.log
