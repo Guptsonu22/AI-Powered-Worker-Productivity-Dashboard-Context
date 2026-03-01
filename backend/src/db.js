@@ -90,8 +90,10 @@ if (IS_POSTGRES) {
   // Convert SQLite datetime() / date() functions to PostgreSQL equivalents
   function normalizeSql(sql) {
     return sql
+      .replace(/datetime\('now',\s*'-60 seconds'\)/gi, "NOW() - INTERVAL '60 seconds'")
       .replace(/datetime\('now'\)/gi, "NOW()")
       .replace(/date\('now'\)/gi, "CURRENT_DATE")
+      .replace(/date\(timestamp\)/gi, "timestamp::date")
       .replace(/strftime\('%Y-%m-%d',\s*([^)]+)\)/gi, "TO_CHAR($1, 'YYYY-MM-DD')")
       .replace(/strftime\('%H',\s*([^)]+)\)/gi, "TO_CHAR($1, 'HH24')")
       .replace(/SUBSTR\(([^,]+),\s*1,\s*10\)/gi, "TO_CHAR($1, 'YYYY-MM-DD')")
