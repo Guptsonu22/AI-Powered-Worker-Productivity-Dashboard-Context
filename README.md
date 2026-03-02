@@ -186,4 +186,96 @@ The backend is powered by a custom abstraction layer that perfectly translates S
 
 ---
 
+## 📦 Features Summary
+
+| Feature | Status |
+|---------|--------|
+| Real-time metrics dashboard | ✅ |
+| Worker productivity analytics | ✅ |
+| Workstation performance tracking | ✅ |
+| Event ingestion API | ✅ |
+| Batch event ingestion | ✅ |
+| Event deduplication | ✅ |
+| Confidence gate (ML-Ops) | ✅ |
+| Model version tracking | ✅ |
+| Camera ID tracking | ✅ |
+| Day-over-day trend analysis | ✅ |
+| AI-powered insights panel | ✅ |
+| Risk Score + Predictive Outlook | ✅ |
+| Production Alerts System | ✅ |
+| Event Pipeline Status card | ✅ |
+| Worker compare mode (radar chart) | ✅ |
+| Performance category badges | ✅ |
+| Auto Simulation engine | ✅ |
+| Simulation speed control | ✅ |
+| Pause / Resume simulation | ✅ |
+| Event Feed with pagination | ✅ |
+| Critical event row highlighting | ✅ |
+| Search & filter (all pages) | ✅ |
+| CSV / JSON export | ✅ |
+| Skeleton loading states | ✅ |
+| Empty states | ✅ |
+| Docker + docker-compose | ✅ |
+| Architecture diagram (README) | ✅ |
+
+---
+
+## 🏗️ Folder Structure
+
+```
+backend/
+├── src/
+│   ├── server.js          # Express app + boot sequence
+│   ├── db.js              # Dual-mode DB (SQLite + PostgreSQL translations)
+│   ├── seed.js            # Sample data generator (3 days × 6 workers)
+│   └── routes/
+│       └── api.js         # All 18 API endpoints
+├── Dockerfile
+├── .env
+└── package.json
+```
+
+```
+frontend/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx           # Overview / Factory dashboard
+│   │   ├── workers/page.tsx   # Worker analytics + compare
+│   │   ├── workstations/page.tsx
+│   │   ├── events/page.tsx    # Event feed + critical rows
+│   │   ├── alerts/page.tsx    # Production Alerts System
+│   │   └── simulate/page.tsx  # Event simulator + speed control
+│   ├── components/
+│   │   ├── DashboardLayout.tsx
+│   │   ├── Sidebar.tsx
+│   │   ├── Toast.tsx
+│   │   └── UI.tsx             # MetricCard, InsightsPanel, SkeletonMetrics...
+│   └── lib/
+│       └── api.ts             # Typed API client
+├── Dockerfile
+└── next.config.ts
+```
+
+---
+
+## 🔮 Future Roadmap
+
+| Enhancement | Description | Priority |
+|-------------|-------------|---------|
+| WebSocket live push | Replace polling with Socket.IO | High |
+| Kafka integration | Message queue for 100+ cameras | High |
+| Redis caching | Cache hot metrics, TTL 30s | Medium |
+| PostgreSQL migration | Replace SQLite for production scale | High |
+| Role-based auth | Admin / Manager / Viewer roles | Medium |
+| Dark/Light mode | CSS custom property toggle | Low |
+| Mobile responsive | Tablet-optimized layout | Medium |
+| Worker timeline | Per-worker event Gantt chart | Medium |
+| Anomaly ML model | Predict idle time spikes | High |
+
+---
+
+## 📄 License
+
+MIT — Built for the AI-Powered Worker Productivity Dashboard Technical Assessment.
+
 > This project is designed as my submission for the AI-Powered Worker Productivity Dashboard Technical Assessment. It strongly reflects production-grade robustness, professional ML-Ops patterns, and extreme attention to detail.
