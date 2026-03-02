@@ -1,7 +1,7 @@
 # AI-Powered Worker Productivity Dashboard
 A **production-grade**, full-stack ML-Ops dashboard that ingests AI-generated CCTV events and computes real-time worker and workstation productivity metrics. Built to handle structured JSON events from computer vision models at the edge.
 
-> **Live Application (Frontend):** [https://ai-powered-worker-prod-git-87de9f-sonu-kumars-projects-e29af719.vercel.app](https://ai-powered-worker-prod-git-87de9f-sonu-kumars-projects-e29af719.vercel.app)
+> **Live Application (Frontend):** [https://ai-powered-worker-productivity-dash-seven.vercel.app/](https://ai-powered-worker-productivity-dash-seven.vercel.app/)
 > 
 > **Live API (Backend):** [https://ai-dashboard-backend-hhnt.onrender.com/api/health](https://ai-dashboard-backend-hhnt.onrender.com/api/health)
 >
