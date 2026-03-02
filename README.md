@@ -141,6 +141,17 @@ curl -X POST https://ai-dashboard-backend-hhnt.onrender.com/api/seed
 
 ## 🤖 ML-Ops & Data Engineering Features
 
+### Handling Intermittent Connectivity
+
+Edge devices such as CCTV cameras may experience temporary network failures. The system is designed to handle this reliably:
+
+- Each event includes the original event timestamp generated at the edge device.
+- Events are stored using event-time, not ingestion-time.
+- Metrics are computed using `ORDER BY timestamp`, ensuring correct ordering even if events arrive late.
+- Duplicate-safe ingestion ensures retry attempts do not corrupt metrics.
+
+This ensures eventual consistency — once connectivity is restored, metrics automatically update correctly without manual intervention.
+
 ### 1. The Confidence Gate
 Events strictly below a configured `confidence` threshold (0.4) are **rejected** immediately at the API boundary, returning an HTTP `422 Unprocessable Entity`. This ensures downstream metrics are never polluted by weak edge-camera inferences.
 
@@ -149,6 +160,38 @@ Using a composite unique index `(worker_id, workstation_id, timestamp, event_typ
 
 ### 3. Model Version & Drift Tracking
 Every ingested event permanently records the `model_version` (e.g., `v1.0`, `v1.2`) that generated it. The dashboard computes confidence distribution per model version to easily visualize potential model drift in the real world.
+
+### Model Drift Detection
+
+Model drift is detected by monitoring confidence score distributions over time.
+
+Drift indicators include:
+
+- Drop in average confidence score
+- Increase in low-confidence prediction percentage
+- Increase in rejected events due to confidence gate
+
+The dashboard tracks confidence metrics per `model_version`, enabling engineers to identify degrading model performance.
+
+In production systems, statistical techniques such as Population Stability Index (PSI) or Kolmogorov–Smirnov test would be used to automatically detect drift.
+
+### Automated Retraining Strategy
+
+When drift is detected, retraining pipelines can be triggered automatically.
+
+Triggers include:
+
+- Average confidence falling below defined threshold
+- Sudden increase in idle or absent detection rates
+- Manual retraining trigger from monitoring dashboard
+
+In production environments, retraining pipelines can be implemented using:
+
+- MLflow
+- Kubeflow
+- Apache Airflow
+
+The retrained model is deployed with a new `model_version`, ensuring traceability and rollback capability.
 
 ### 4. Cross-Dialect SQL Normalization
 The backend is powered by a custom abstraction layer that perfectly translates SQLite syntaxes (used in local development) into structured PostgreSQL typings (used in production), enabling an identical API surface area across environments with zero configuration overhead. 
@@ -271,6 +314,30 @@ frontend/
 | Mobile responsive | Tablet-optimized layout | Medium |
 | Worker timeline | Per-worker event Gantt chart | Medium |
 | Anomaly ML model | Predict idle time spikes | High |
+
+---
+
+## Assumptions and Tradeoffs
+
+**Assumptions:**
+
+- Edge devices generate accurate timestamps.
+- Worker shifts are fixed duration.
+- Confidence score reflects prediction reliability.
+- Event ingestion volume fits within PostgreSQL performance limits.
+
+**Tradeoffs:**
+
+- SQLite used for local simplicity instead of a distributed database.
+- Polling used instead of WebSockets for implementation simplicity.
+- Kafka not used due to assessment scope.
+
+**Future production improvements include:**
+
+- Kafka event streaming
+- Redis caching
+- WebSocket real-time updates
+- Distributed time-series databases
 
 ---
 
